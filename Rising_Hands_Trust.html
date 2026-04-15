@@ -1,0 +1,2757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rising Hands Trust - Empowering Communities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* --- MODIFIED: Mobile Nav --- */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 2001; /* Above mobile overlay */
+        }
+        
+        .hamburger-menu .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-menu.active .bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger-menu.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu.active .bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+        /* --- END: Mobile Nav --- */
+
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section - Enhanced */
+        .hero {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 0.95)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e74c3c" width="1200" height="600"/><circle cx="100" cy="100" r="50" fill="%23c0392b" opacity="0.3"/><circle cx="900" cy="400" r="80" fill="%23c0392b" opacity="0.3"/></svg>');
+            color: white;
+            padding: 140px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 50%);
+            animation: pulse 4s infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            animation: moveStripes 20s linear infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+            line-height: 1.2;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 500;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+            animation: fadeInUp 1.2s;
+        }
+
+        .hero-stat {
+            background: rgba(255,255,255,0.25);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255,255,255,0.4);
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255,255,255,0.35);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .hero-stat h3 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .hero-stat p {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 45px;
+            background: white;
+            color: #e74c3c;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 3px solid white;
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover:not(:disabled) {
+            background: white;
+            color: #e74c3c;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 900;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 900px;
+            margin: 1.5rem auto 0;
+            line-height: 1.8;
+        }
+        
+        .section-subheader {
+            text-align: center;
+            color: #e74c3c;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Causes Section */
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            padding: 60px 20px;
+        }
+
+        .cause-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.15);
+            transition: all 0.4s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .cause-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 70px rgba(231, 76, 60, 0.3);
+            border-color: #e74c3c;
+        }
+
+        .cause-image {
+            height: 250px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cause-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        .cause-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            color: #e74c3c;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .cause-content {
+            padding: 2rem;
+        }
+
+        .cause-content h3 {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .cause-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .cause-details {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            padding: 1.2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .cause-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cause-details li {
+            padding: 0.6rem 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .cause-details li::before {
+            content: '✓';
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .progress-bar {
+            background: #ffe8e8;
+            height: 14px;
+            border-radius: 7px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ffcccc;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            height: 100%;
+            transition: width 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px;
+        }
+
+        .bg-light {
+            background: white;
+        }
+
+        .bg-gradient {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .about-intro p {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 2;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(231, 76, 60, 0.2);
+            border-color: #e74c3c;
+        }
+
+        .mission-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-card h3 {
+            color: #e74c3c;
+            font-size: 1.9rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .mission-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-card h3 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .stat-card p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .team-section {
+            margin-top: 4rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.1);
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            border: 5px solid #ffe8e8;
+        }
+
+        .team-member h4 {
+            color: #e74c3c;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #999;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Impact Stories */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.1);
+            transition: all 0.3s;
+            border-left: 6px solid #e74c3c;
+        }
+
+        .story-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 60px rgba(231, 76, 60, 0.2);
+        }
+
+        .story-quote {
+            font-size: 3rem;
+            color: #e74c3c;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .story-text {
+            font-style: italic;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+
+        .story-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .story-info h5 {
+            color: #e74c3c;
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        .story-info p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Donation Form */
+        .donation-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 60px rgba(231, 76, 60, 0.15);
+            border: 2px solid #ffe8e8;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ffe8e8;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .amount-btn {
+            padding: 15px;
+            border: 2px solid #e74c3c;
+            background: white;
+            color: #e74c3c;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .amount-btn:hover,
+        .amount-btn.active {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .donation-benefits {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .donation-benefits h4 {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .donation-benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .donation-benefits li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .donation-benefits li::before {
+            content: '🎁';
+            font-size: 1.2rem;
+        }
+
+        /* Records Page */
+        .records-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- MODIFIED: Interactive & Responsive Filters --- */
+        .records-filters {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.1);
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column; /* Stack filter/sort on mobile */
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            flex-wrap: wrap; 
+        }
+
+        .filter-buttons-container {
+            display: flex;
+            flex-wrap: nowrap; /* Prevent wrapping */
+            overflow-x: auto; /* Allow horizontal scroll */
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            width: 100%;
+            /* Hide scrollbar */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .filter-buttons-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e74c3c;
+            background: white;
+            color: #e74c3c;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex-shrink: 0; /* Prevent buttons from shrinking */
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .sort-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .sort-select {
+            padding: 10px 15px;
+            border: 2px solid #e74c3c;
+            border-radius: 25px;
+            background: white;
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e74c3c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+        }
+        
+        .sort-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+        
+        /* Responsive for filters/sort */
+        @media (min-width: 768px) {
+            .filter-group {
+                flex-wrap: nowrap;
+            }
+            .filter-buttons-container {
+                flex-wrap: wrap;
+                overflow-x: visible;
+                padding: 0;
+                width: auto;
+            }
+        }
+        
+        @media (min-width: 992px) {
+             .records-filters {
+                flex-direction: row; /* Side-by-side on desktop */
+                justify-content: space-between;
+                align-items: center;
+             }
+             .sort-group {
+                flex-wrap: nowrap;
+             }
+        }
+        /* --- END MODIFIED: Filters --- */
+
+
+        .records-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .records-stat-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.1);
+            text-align: center;
+            border-top: 4px solid #e74c3c;
+            transition: all 0.3s;
+        }
+        
+        .records-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.15);
+        }
+
+        .records-stat-card h3 {
+            font-size: 3.25rem;
+            color: #e74c3c;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .records-stat-card p {
+            color: #555;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .cause-records-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cause-stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.1);
+            border-left: 6px solid #e74c3c;
+        }
+
+        .cause-stat-card h3 {
+            font-size: 1.6rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cause-stat-card h3 span {
+            font-size: 2rem;
+        }
+
+        .donations-list {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.1);
+            overflow: hidden;
+            /* New: for smooth re-ordering */
+            transition: height 0.3s ease-in-out;
+        }
+
+        .donation-item {
+            padding: 2rem;
+            border-bottom: 1px solid #ffe8e8;
+            transition: all 0.3s;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            /* New: for smooth re-ordering */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .donation-item:hover {
+            background: #fff5f5;
+        }
+        
+        /* New: for filtering */
+        .donation-item.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .donation-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .donation-details h4 {
+            color: #e74c3c;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .donation-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .donation-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .donation-amount {
+            font-size: 1.8rem;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .no-donations {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #999;
+        }
+
+        .no-donations-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* --- MODIFIED: Full-Screen Receipt --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+            padding: 0; /* Removed padding */
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .receipt {
+            background: white;
+            padding: 0;
+            border-radius: 0; /* Full screen */
+            max-width: 100%;
+            width: 100%;
+            height: 100%; /* Full screen */
+            box-shadow: none;
+            animation: slideIn 0.5s;
+            position: relative;
+            overflow: hidden; /* Control scrolling inside */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .receipt-header {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: #fff5f5;
+            border-bottom: 3px solid #e74c3c;
+            flex-shrink: 0; /* Header doesn't shrink */
+        }
+        
+        .receipt-header h2 {
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .receipt-header p {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .receipt-details {
+            padding: 2.5rem;
+            flex-grow: 1; /* Make details fill space */
+            overflow-y: auto; /* Allow details to scroll */
+        }
+        
+        .receipt-highlight-amount {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .receipt-highlight-amount p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .receipt-highlight-amount h3 {
+            font-size: 3rem;
+            font-weight: 900;
+        }
+        
+        .receipt-group {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #ffe8e8;
+        }
+        
+        .receipt-group:last-of-type {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .receipt-group h4 {
+            color: #e74c3c;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .receipt-group p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .receipt-group p strong {
+            color: #333;
+            min-width: 120px;
+            display: inline-block;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+            flex-shrink: 0; /* Footer doesn't shrink */
+        }
+        
+        .receipt-footer p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .receipt-footer p strong {
+            color: #333;
+        }
+
+        /* New Close Button for Full-Screen Receipt */
+        .receipt-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        .receipt-close-btn:hover {
+            background: rgba(0,0,0,0.6);
+            transform: scale(1.1);
+        }
+        /* --- END: Full-Screen Receipt --- */
+
+
+        /* Custom Notification */
+        .notification {
+            position: fixed;
+            bottom: -100px; /* Start off-screen */
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #2ecc71, #27ae60); /* Green for success */
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            font-weight: 600;
+            z-index: 9999;
+            transition: bottom 0.5s ease-in-out;
+            font-size: 1.1rem;
+        }
+
+        .notification.active {
+            bottom: 30px; /* Slide in */
+        }
+        
+        .notification.error {
+             background: linear-gradient(135deg, #e74c3c, #c0392b); /* Red for error */
+        }
+
+
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.1);
+            transition: all 0.3s;
+            border-top: 4px solid #e74c3c;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(231, 76, 60, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .contact-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            max-width: 800px;
+            margin: 4rem auto 0;
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.1);
+        }
+
+        .map-section {
+            margin-top: 4rem;
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(231, 76, 60, 0.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes moveStripes {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 4rem 20px 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.9);
+            line-height: 2;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            padding-left: 5px;
+            transition: all 0.3s;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-btn:hover {
+            background: white;
+            color: #e74c3c;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            /* --- NEW: Mobile Nav --- */
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 100%; /* Start off-screen */
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg, #e74c3c, #c0392b);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: left 0.3s ease-in-out;
+                z-index: 2000;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links a {
+                font-size: 2rem;
+            }
+            /* --- END: Mobile Nav --- */
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .section-subheader {
+                font-size: 1.6rem;
+            }
+
+            .causes-grid,
+            .stories-grid,
+            .cause-records-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .records-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .records-stat-card {
+                padding: 2rem;
+            }
+            
+            .records-stat-card h3 {
+                font-size: 2.5rem;
+            }
+            
+            .records-stat-card p {
+                font-size: 1.1rem;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            /* --- MODIFIED: Responsive Donation Item --- */
+            .donation-item {
+                grid-template-columns: 1fr;
+                text-align: left; /* Changed from center */
+                gap: 1.5rem;
+            }
+            .donation-icon {
+                margin: 0 auto; /* Center the icon */
+            }
+            .donation-details {
+                text-align: center; /* Center the text details */
+            }
+            .donation-amount {
+                text-align: center;
+                font-size: 2rem; /* Make amount bigger */
+                padding: 0.5rem;
+                background: #fff5f5;
+                border-radius: 12px;
+            }
+            .donation-meta {
+                justify-content: center; /* Center meta items */
+            }
+            /* --- END MODIFIED --- */
+            
+            .receipt-details {
+                padding: 1.5rem;
+            }
+            
+            .receipt-header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .receipt-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .receipt-header p {
+                font-size: 1.1rem;
+            }
+            
+            .receipt-highlight-amount h3 {
+                font-size: 2.2rem;
+            }
+            
+            .receipt-group p strong {
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <span>🤝</span> Rising Hands Trust
+            </div>
+            <!-- Modified Nav Links -->
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active" onclick="showPage(event, 'home')">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage(event, 'about')">About</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage(event, 'causes')">Causes</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage(event, 'donate')">Donate</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage(event, 'records')">Records</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage(event, 'contact')">Contact</a></li>
+            </ul>
+            <!-- New Hamburger Menu -->
+            <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileNav()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>EMPOWERING COMMUNITIES,<br>TRANSFORMING LIVES</h1>
+                <p>Together, we're building a brighter future for those in need. Join us in our mission to create lasting change and spread hope across communities.</p>
+                <a href="#" onclick="showPage(event, 'donate')" class="btn btn-secondary">START MAKING A DIFFERENCE</a>
+                <a href="#" onclick="showPage(event, 'about')" class="btn btn-outline">LEARN MORE ABOUT US</a>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <h3>15+</h3>
+                        <p>Years of Impact</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>10,000+</h3>
+                        <p>Lives Changed</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>50+</h3>
+                        <p>Active Projects</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>100+</h3>
+                        <p>Volunteers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Causes</h2>
+                    <p>Discover the transformative initiatives we're driving to create meaningful change in communities. Your support brings hope and opportunities to those who need it most.</p>
+                </div>
+                <div class="causes-grid" id="homeCauses"></div>
+            </div>
+        </section>
+
+        <section class="bg-gradient">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Impact Stories</h2>
+                    <p>Real stories from real people whose lives have been touched by your generosity and support.</p>
+                </div>
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div class="story-quote">"</div>
+                        <p class="story-text">Rising Hands Trust gave my daughter a chance at education when we had lost all hope. Today, she's pursuing her dreams of becoming a teacher. This organization doesn't just change lives—it transforms entire futures.</p>
+                        <div class="story-author">
+                            <div class="story-avatar">👨</div>
+                            <div class="story-info">
+                                <h5>Rajesh Kumar</h5>
+                                <p>Parent • Ludhiana</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card">
+                        <div class="story-quote">"</div>
+                        <p class="story-text">The healthcare support program helped me get the surgery I desperately needed. The team didn't just provide medical help; they gave me hope and dignity. I'm forever grateful for their compassion.</p>
+                        <div class="story-author">
+                            <div class="story-avatar">👩</div>
+                            <div class="story-info">
+                                <h5>Priya Singh</h5>
+                                <p>Beneficiary • Amritsar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="story-card">
+                        <div class="story-quote">"</div>
+                        <p class="story-text">Through their skill development program, I learned tailoring and started my own business. Now I can support my family independently. Rising Hands Trust believed in me when no one else did.</p>
+                        <div class="story-author">
+                            <div class="story-avatar">👩</div>
+                            <div class="story-info">
+                                <h5>Meera Devi</h5>
+                                <p>Entrepreneur • Jalandhar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2>About Rising Hands Trust</h2>
+                    <p>Building bridges of hope, creating pathways to prosperity</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-intro">
+                        <p>Founded in 2009, Rising Hands Trust emerged from a simple yet powerful vision: to create a world where every individual has access to basic necessities, quality education, healthcare, and opportunities for growth. What started as a small community initiative has blossomed into a comprehensive social welfare organization touching thousands of lives across Punjab and beyond.</p>
+                        
+                        <p>We are driven by the belief that sustainable change comes from empowering communities, not just providing aid. Through our holistic approach, we address root causes of poverty, inequality, and social injustice, creating lasting impact that reverberates through generations.</p>
+                        
+                        <p>Our dedicated team of professionals, volunteers, and community partners work tirelessly to implement programs that are not only effective but also dignified, respecting the agency and potential of every individual we serve. We operate with complete transparency, ensuring that every rupee donated creates maximum impact.</p>
+                    </div>
+
+                    <div class="mission-vision">
+                        <div class="mission-card">
+                            <div class="mission-icon">🎯</div>
+                            <h3>Our Mission</h3>
+                            <p>To empower marginalized communities through comprehensive programs in education, healthcare, livelihood, and social development. We strive to create sustainable solutions that break the cycle of poverty and foster self-reliance, dignity, and hope for a brighter future.</p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="mission-icon">👁️</div>
+                            <h3>Our Vision</h3>
+                            <p>A just and equitable society where every individual, regardless of their socio-economic background, has access to quality education, healthcare, nutritious food, and opportunities to realize their full potential. We envision communities that are self-sufficient, resilient, and thriving.</p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="mission-icon">💎</div>
+                            <h3>Our Values</h3>
+                            <p>Compassion guides our actions, integrity defines our operations, transparency builds trust, innovation drives our solutions, and collaboration amplifies our impact. We believe in treating every beneficiary with dignity and respect, recognizing their inherent worth and potential.</p>
+                        </div>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat-card">
+                            <h3>10,000+</h3>
+                            <p>Lives Transformed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>50+</h3>
+                            <p>Active Projects</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>15+</h3>
+                            <p>Years of Dedicated Service</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>25+</h3>
+                            <p>Villages Reached</p>
+                        </div>
+                    </div>
+
+                    <div class="team-section">
+                        <div class="section-header">
+                            <h2>Our Leadership Team</h2>
+                            <p>Dedicated individuals committed to creating positive social change</p>
+                        </div>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <div class="team-avatar">👨‍💼</div>
+                                <h4>Dr. Amandeep Singh</h4>
+                                <p class="team-role">Founder & Chairman</p>
+                                <p>15+ years in social development, passionate about education reform and community empowerment.</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar">👩‍💼</div>
+                                <h4>Simran Kaur</h4>
+                                <p class="team-role">Executive Director</p>
+                                <p>Expert in healthcare management and program implementation with a heart for serving communities.</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar">👨‍💼</div>
+                                <h4>Harpreet Singh</h4>
+                                <p class="team-role">Programs Director</p>
+                                <p>Specializes in rural development and sustainable livelihood programs across Punjab.</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-avatar">👩‍💼</div>
+                                <h4>Jaspreet Kaur</h4>
+                                <p class="team-role">Community Outreach Head</p>
+                                <p>Connects with grassroots communities to understand needs and implement effective solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Causes Page -->
+    <div id="causes" class="page">
+        <section class="bg-gradient">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Causes & Initiatives</h2>
+                    <p>Comprehensive programs addressing critical social needs and creating lasting change in communities</p>
+                </div>
+                <div class="causes-grid" id="allCauses"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Donate Page -->
+    <div id="donate" class="page">
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Make a Donation</h2>
+                    <p>Your generosity can transform lives. Every contribution, no matter the size, creates ripples of positive change in our communities.</p>
+                </div>
+                <div class="donation-form">
+                    <form id="donationForm">
+                        <div class="form-group">
+                            <label>🎯 Select a Cause</label>
+                            <select id="causeSelect" required>
+                                <option value="">Choose the cause you want to support...</option>
+                            </select>
+                        </div>
+
+                        <div class="donation-benefits">
+                            <h4>💝 Your Donation Impact</h4>
+                            <ul>
+                                <li>100% of your donation goes directly to the cause</li>
+                                <li>Tax-exemption certificate under Section 80G</li>
+                                <li>Regular updates on how your contribution is making a difference</li>
+                                <li>Transparent reporting and complete accountability</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group">
+                            <label>💰 Donation Amount (₹)</label>
+                            <div class="amount-options">
+                                <button type="button" class="amount-btn" onclick="selectAmount(event, 500)">₹500</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(event, 1000)">₹1,000</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(event, 2500)">₹2,500</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(event, 5000)">₹5,000</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(event, 10000)">₹10,000</button>
+                                <button type="button" class="amount-btn" onclick="selectAmount(event, 25000)">₹25,000</button>
+                            </div>
+                            <input type="number" id="donationAmount" placeholder="Or enter your custom amount" required min="1" oninput="clearAmountButtons()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>👤 Full Name</label>
+                            <input type="text" id="donorName" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>📧 Email Address</label>
+                            <input type="email" id="donorEmail" placeholder="your.email@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>📱 Phone Number</label>
+                            <input type="tel" id="donorPhone" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>🏠 Complete Address</label>
+                            <textarea id="donorAddress" rows="3" placeholder="Street, City, State, PIN Code" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>💬 Message (Optional)</label>
+                            <textarea id="donorMessage" rows="3" placeholder="Share your thoughts or dedicate this donation to someone special..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 1rem; padding: 18px;">
+                            COMPLETE DONATION & GET RECEIPT
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Records Page -->
+    <div id="records" class="page">
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Donation Records</h2>
+                    <p>A complete record of all generous contributions that are making a difference in our communities</p>
+                </div>
+                
+                <div class="records-container">
+                    <div class="records-stats">
+                        <div class="records-stat-card">
+                            <h3 id="totalDonors">0</h3>
+                            <p>Total Donors</p>
+                        </div>
+                        <div class="records-stat-card">
+                            <h3 id="totalDonations">₹0</h3>
+                            <p>Total Donations</p>
+                        </div>
+                        <div class="records-stat-card">
+                            <h3 id="avgDonation">₹0</h3>
+                            <p>Average Donation</p>
+                        </div>
+                        <div class="records-stat-card">
+                            <h3 id="recentDonations">0</h3>
+                            <p>This Month</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-subheader">Funds Raised Per Cause</h3>
+                    <div class="cause-records-stats" id="causeRecordsStats">
+                        <!-- Cause stats will be dynamically injected here -->
+                    </div>
+
+                    <!-- --- NEW INTERACTIVE FILTER/SORT BAR --- -->
+                    <div class="records-filters">
+                        <div class="filter-group">
+                            <span style="font-weight: 600; color: #e74c3c; flex-shrink: 0;">Filter by Cause:</span>
+                            <div class="filter-buttons-container" id="filterButtonsContainer">
+                                <button class="filter-btn active" onclick="filterRecords(event, 'all')">All Causes</button>
+                                <button class="filter-btn" onclick="filterRecords(event, 'education')">📚 Education</button>
+                                <button class="filter-btn" onclick="filterRecords(event, 'healthcare')">🏥 Healthcare</button>
+                                <button class="filter-btn" onclick="filterRecords(event, 'hunger')">🍽️ Hunger</button>
+                                <button class="filter-btn" onclick="filterRecords(event, 'environment')">🌱 Environment</button>
+                                <button class="filter-btn" onclick="filterRecords(event, 'women')">👩‍💼 Women</button>
+                                <button class="filter-btn" onclick="filterRecords(event, 'elderly')">👴 Elderly</button>
+                            </div>
+                        </div>
+                        <div class="sort-group">
+                            <label for="sortDonations" style="font-weight: 600; color: #e74c3c; flex-shrink: 0;">Sort by:</label>
+                            <select id="sortDonations" onchange="renderDonationsRecords()" class="sort-select">
+                                <option value="date-desc">Date (Newest First)</option>
+                                <option value="date-asc">Date (Oldest First)</option>
+                                <option value="amount-desc">Amount (High-Low)</option>
+                                <option value="amount-asc">Amount (Low-High)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- --- END NEW BAR --- -->
+
+                    <h3 class="section-subheader" style="margin-top: 4rem;">Detailed Donation & Donor Records</h3>
+                    <div class="donations-list" id="donationsList">
+                        <div class="no-donations">
+                            <div class="no-donations-icon">📋</div>
+                            <h3>No Donations Yet</h3>
+                            <p>Be the first to make a difference! Your contribution will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Get In Touch</h2>
+                    <p>We'd love to hear from you. Whether you want to volunteer, partner, or learn more about our work, we're here to connect.</p>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Visit Our Office</h3>
+                        <p>Rising Hands Trust<br>123 Charity Street, Civil Lines<br>Ludhiana, Punjab 141001<br>India</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email Us</h3>
+                        <p>General Inquiries:<br>info@risinghandstrust.org<br><br>Donations Support:<br>donate@risinghandstrust.org</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <h3>Call Us</h3>
+                        <p>Main Office:<br>+91 161 123 4567<br><br>Helpline (24/7):<br>+91 161 123 4568</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">⏰</div>
+                        <h3>Working Hours</h3>
+                        <p>Monday - Friday:<br>9:00 AM - 6:00 PM<br><br>Saturday:<br>10:00 AM - 4:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3 class="section-subheader" style="margin-bottom: 2rem;">Send Us a Message</h3>
+                    <form id="contactForm" onsubmit="handleContactForm(event)">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Email</label>
+                            <input type="email" placeholder="email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="What is this regarding?" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" style="width: 100%;">SEND MESSAGE</button>
+                    </form>
+                </div>
+
+                <div class="map-section">
+                    <h3 class="section-subheader" style="margin-bottom: 2rem;">Find Us on Map</h3>
+                    <div class="map-placeholder">
+                        📍 Ludhiana, Punjab, India
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receiptModal" class="modal" onclick="closeReceiptOnOutside(event)">
+        <!-- --- MODIFIED: Full-Screen Receipt --- -->
+        <div class="receipt" onclick="event.stopPropagation()">
+            <button onclick="closeReceipt()" class="receipt-close-btn">✖</button>
+            <div class="receipt-header">
+                <h2>🙏 Thank You!</h2>
+                <p>Rising Hands Trust</p>
+            </div>
+            <div class="receipt-details" id="receiptDetails">
+                <!-- Receipt content is injected by showReceipt() -->
+            </div>
+            <div class="receipt-footer">
+                <p id="receiptEmailMessage">A full, tax-deductible (80G) receipt has been sent to your email.</p>
+                <!-- --- MODIFIED: Email Button Added --- -->
+                <button onclick="downloadReceipt()" class="btn btn-secondary" style="margin-right: 1rem;">📄 Download Receipt</button>
+                <button onclick="sendEmailReceipt()" class="btn">📧 Send via Email</button>
+            </div>
+        </div>
+        <!-- --- END: Full-Screen Receipt --- -->
+    </div>
+
+    <!-- Custom Notification -->
+    <div id="notification" class="notification">Message Sent! Thank You.</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🤝 Rising Hands Trust</h3>
+                <p>Empowering communities and transforming lives since 2009. Together, we can create a world where everyone has the opportunity to thrive.</p>
+                <div class="social-links">
+                    <a href="#" class="social-btn">📘</a>
+                    <a href="#" class="social-btn">🐦</a>
+                    <a href="#" class="social-btn">📷</a>
+                    <a href="#" class="social-btn">💼</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#" onclick="showPage(event, 'home')">Home</a>
+                <a href="#" onclick="showPage(event, 'about')">About Us</a>
+                <a href="#" onclick="showPage(event, 'causes')">Our Causes</a>
+                <a href="#" onclick="showPage(event, 'donate')">Donate Now</a>
+                <a href="#" onclick="showPage(event, 'records')">Donation Records</a>
+                <a href="#" onclick="showPage(event, 'contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Our Causes</h3>
+                <a href="#" onclick="showPage(event, 'causes')">Education for All</a>
+                <a href="#" onclick="showPage(event, 'causes')">Healthcare Support</a>
+                <a href="#" onclick="showPage(event, 'causes')">Fight Against Hunger</a>
+                <a href="#" onclick="showPage(event, 'causes')">Environmental Conservation</a>
+                <a href="#" onclick="showPage(event, 'causes')">Women Empowerment</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📍 123 Charity Street<br>Ludhiana, Punjab 141001</p>
+                <p>📧 info@risinghandstrust.org</p>
+                <p>📞 +91 161 123 4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rising Hands Trust. All rights reserved. | Registered under Section 80G</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- App State ---
+        let currentReceipt = null;
+        let allDonations = [];
+        let currentFilter = 'all';
+
+        // --- Global Causes Array ---
+        const causes = [
+            { id: 'education', name: 'Education for All', icon: '📚', goal: 100000, badge: 'Active', details: ['Free school supplies and uniforms for 500+ children', 'Digital learning labs in 10 government schools', 'Scholarship programs for meritorious students', 'After-school tutoring and mentorship programs'], raised: 0, description: 'Providing quality education and learning resources to underprivileged children across rural and urban areas.' },
+            { id: 'healthcare', name: 'Healthcare Support', icon: '🏥', goal: 150000, badge: 'Urgent', details: ['Free health camps in rural villages monthly', 'Medicine subsidies for chronic illness patients', 'Emergency medical assistance fund', 'Health awareness and preventive care programs'], raised: 0, description: 'Ensuring access to quality medical care and health facilities for those in need across all age groups.' },
+            { id: 'hunger', name: 'Fight Against Hunger', icon: '🍽️', goal: 80000, badge: 'Critical', details: ['Daily meal distribution to 200+ families', 'Community kitchens in 5 locations', 'Nutrition programs for malnourished children', 'Food grain support for elderly and disabled'], raised: 0, description: 'Providing nutritious meals and ensuring food security for vulnerable communities and families.' },
+            { id: 'environment', name: 'Environmental Conservation', icon: '🌱', goal: 120000, badge: 'Active', details: ['Plantation of 10,000+ trees annually', 'Waste management and recycling programs', 'Clean water initiatives in rural areas', 'Environmental awareness campaigns in schools'], raised: 0, description: 'Protecting our planet through tree plantation, clean energy initiatives, and sustainable practices.' },
+            { id: 'women', name: 'Women Empowerment', icon: '👩‍💼', goal: 90000, badge: 'Growing', details: ['Vocational training in tailoring, crafts, and more', 'Micro-loans for women entrepreneurs', 'Legal aid and counseling services', 'Self-help groups in 15 villages'], raised: 0, description: 'Supporting women through skill development, entrepreneurship programs, and rights advocacy.' },
+            { id: 'elderly', name: 'Elderly Care', icon: '👴', goal: 70000, badge: 'Active', details: ['Free medical checkups and medicines', 'Day care centers with recreational activities', 'Home visits and companionship programs', 'Financial assistance for basic needs'], raised: 0, description: 'Providing comprehensive care, support, and companionship to senior citizens in need.' }
+        ];
+
+        
+        // --- NEW: Custom Notification Function ---
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            if (!notification) return;
+            notification.textContent = message;
+            notification.classList.add('active');
+            if (isError) {
+                notification.classList.add('error');
+            } else {
+                notification.classList.remove('error');
+            }
+            setTimeout(() => {
+                notification.classList.remove('active');
+            }, 3000); // Hide after 3 seconds
+        }
+
+        // --- Initialize App ---
+        async function init() {
+            await loadCausesData();
+            await loadDonationsRecords();
+            renderCauses();
+            populateCauseSelect();
+            updateRecordsStats();
+            renderCauseRecordsStats(); 
+            renderAllDonationsOnce();
+        }
+
+        // --- Data Persistence (localStorage) ---
+        async function loadCausesData() {
+            try {
+                const result = localStorage.getItem('ngo-causes-data');
+                if (result) {
+                    const savedData = JSON.parse(result);
+                    savedData.forEach(saved => {
+                        const cause = causes.find(c => c.id === saved.id);
+                        if (cause) {
+                            cause.raised = saved.raised;
+                        }
+                    });
+                }
+            } catch (error) {
+                console.log('No previous cause data found, starting fresh');
+            }
+        }
+
+        async function saveCausesData() {
+            const dataToSave = causes.map(c => ({ id: c.id, raised: c.raised }));
+            try {
+                localStorage.setItem('ngo-causes-data', JSON.stringify(dataToSave));
+            } catch (error) {
+                console.error('Error saving causes data:', error);
+            }
+        }
+
+        async function loadDonationsRecords() {
+            try {
+                const data = localStorage.getItem('ngo-donations');
+                allDonations = data ? JSON.parse(data) : [];
+                allDonations.sort((a, b) => parseInt(b.receiptId.replace('RHT', '')) - parseInt(a.receiptId.replace('RHT', '')));
+            } catch (error) {
+                console.log('No donation records found');
+                allDonations = [];
+            }
+        }
+        
+        async function saveDonation(donation) {
+             try {
+                allDonations.unshift(donation); 
+                localStorage.setItem('ngo-donations', JSON.stringify(allDonations));
+            } catch (error) {
+                console.error('Error saving donation:', error);
+            }
+        }
+
+        // --- DOM Rendering ---
+
+        function createDonationItemHTML(donation) {
+            const timeAgo = getTimeAgo(donation.receiptId);
+            const timestamp = parseInt(donation.receiptId.replace('RHT', ''));
+            
+            return `
+                <div class="donation-item" 
+                     data-cause="${donation.causeId}" 
+                     data-timestamp="${timestamp}" 
+                     data-amount="${donation.amount}" 
+                     style="display: grid;">
+                     
+                    <div class="donation-icon">${donation.causeIcon}</div>
+                    <div class="donation-details">
+                        <h4>${donation.name}</h4>
+                        <div class="donation-meta">
+                            <span>🎯 ${donation.causeName}</span>
+                            <span>📅 ${donation.date}</span>
+                            <span>⏰ ${timeAgo}</span>
+                            <span>📧 ${donation.email}</span>
+                            <span>📞 ${donation.phone}</span>
+                        </div>
+                        ${donation.message ? `<p style="margin-top: 0.5rem; color: #666; font-style: italic;">"${donation.message}"</p>` : ''}
+                    </div>
+                    <div class="donation-amount">₹${donation.amount.toLocaleString()}</div>
+                </div>
+            `;
+        }
+        
+        function renderAllDonationsOnce() {
+            const donationsList = document.getElementById('donationsList');
+            if (!donationsList) return;
+            
+            if (allDonations.length === 0) {
+                donationsList.innerHTML = `<div class="no-donations">...</div>`; // Placeholder
+                updateNoDonationsMessage(); // Set proper message
+                return;
+            }
+            
+            const donationsHTML = allDonations.map(createDonationItemHTML).join('');
+            donationsList.innerHTML = donationsHTML;
+            filterRecords(null, 'all'); 
+        }
+        
+        function addNewDonationToDOM(donation) {
+            const donationsList = document.getElementById('donationsList');
+            if (!donationsList) return;
+            
+            const noDonationsEl = donationsList.querySelector('.no-donations');
+            if (noDonationsEl) {
+                noDonationsEl.remove();
+            }
+            
+            const donationHTML = createDonationItemHTML(donation);
+            donationsList.insertAdjacentHTML('afterbegin', donationHTML);
+            filterRecords(null, currentFilter); // Re-apply filter and sort
+        }
+
+        function renderCauses() {
+            const homeCauses = document.getElementById('homeCauses');
+            const allCauses = document.getElementById('allCauses');
+            
+            const causesHTML = causes.map(cause => {
+                const percentage = Math.min((cause.raised / cause.goal) * 100, 100);
+                const detailsList = cause.details.map(d => `<li>${d}</li>`).join('');
+                
+                return `
+                    <div class="cause-card">
+                        <div class="cause-image">
+                            ${cause.icon}
+                            <div class="cause-badge">${cause.badge}</div>
+                        </div>
+                        <div class="cause-content">
+                            <h3>${cause.name}</h3>
+                            <p>${cause.description}</p>
+                            <div class="cause-details">
+                                <ul>${detailsList}</ul>
+                            </div>
+                            <div class="progress-text">
+                                <span><strong>₹${cause.raised.toLocaleString()}</strong> raised</span>
+                                <span><strong>₹${cause.goal.toLocaleString()}</strong> goal</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${percentage}%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>${percentage.toFixed(1)}% Complete</span>
+                                <span>₹${(cause.goal - cause.raised).toLocaleString()} to go</span>
+                            </div>
+                            <button onclick="showPage(event, 'donate'); selectCause('${cause.id}')" class="btn btn-secondary" style="width: 100%; margin-top: 1.5rem;">
+                                DONATE TO THIS CAUSE
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (homeCauses) {
+                homeCauses.innerHTML = causes.slice(0, 3).map(cause => {
+                     const percentage = Math.min((cause.raised / cause.goal) * 100, 100);
+                     const detailsList = cause.details.map(d => `<li>${d}</li>`).join('');
+                     return `
+                    <div class="cause-card">
+                        <div class="cause-image">
+                            ${cause.icon}
+                            <div class="cause-badge">${cause.badge}</div>
+                        </div>
+                        <div class="cause-content">
+                            <h3>${cause.name}</h3>
+                            <p>${cause.description}</p>
+                            <div class="cause-details">
+                                <ul>${detailsList}</ul>
+                            </div>
+                            <div class="progress-text">
+                                <span><strong>₹${cause.raised.toLocaleString()}</strong> raised</span>
+                                <span><strong>₹${cause.goal.toLocaleString()}</strong> goal</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${percentage}%"></div>
+                            </div>
+                            <div class="progress-label">
+                                <span>${percentage.toFixed(1)}% Complete</span>
+                                <span>₹${(cause.goal - cause.raised).toLocaleString()} to go</span>
+                            </div>
+                            <button onclick="showPage(event, 'donate'); selectCause('${cause.id}')" class="btn btn-secondary" style="width: 100%; margin-top: 1.5rem;">
+                                DONATE TO THIS CAUSE
+                            </button>
+                        </div>
+                    </div>
+                `;
+                }).join('');
+            }
+            if (allCauses) allCauses.innerHTML = causesHTML;
+        }
+
+        function populateCauseSelect() {
+            const select = document.getElementById('causeSelect');
+            if (!select) return;
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            causes.forEach(cause => {
+                const option = document.createElement('option');
+                option.value = cause.id;
+                option.textContent = `${cause.icon} ${cause.name}`;
+                select.appendChild(option);
+            });
+        }
+
+        function updateRecordsStats() {
+            const totalDonors = allDonations.length;
+            const totalAmount = allDonations.reduce((sum, d) => sum + d.amount, 0);
+            const avgAmount = totalDonors > 0 ? totalAmount / totalDonors : 0;
+            
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const thisMonthDonations = allDonations.filter(d => {
+                const donationDate = new Date(d.date);
+                return donationDate.getMonth() === currentMonth && donationDate.getFullYear() === currentYear;
+            }).length;
+
+            if(document.getElementById('totalDonors')) {
+                document.getElementById('totalDonors').textContent = totalDonors;
+                document.getElementById('totalDonations').textContent = '₹' + totalAmount.toLocaleString();
+                document.getElementById('avgDonation').textContent = '₹' + Math.round(avgAmount).toLocaleString();
+                document.getElementById('recentDonations').textContent = thisMonthDonations;
+            }
+        }
+
+        function renderCauseRecordsStats() {
+            const container = document.getElementById('causeRecordsStats');
+            if (!container) return;
+            const cardsHTML = causes.map(cause => {
+                const percentage = Math.min((cause.raised / cause.goal) * 100, 100);
+                return `
+                    <div class="cause-stat-card">
+                        <h3><span>${cause.icon}</span> ${cause.name}</h3>
+                        <div class="progress-text">
+                            <span><strong>₹${cause.raised.toLocaleString()}</strong> raised</span>
+                            <span><strong>₹${cause.goal.toLocaleString()}</strong> goal</span>
+                        </div>
+                        <div class="progress-bar" style="margin-top: 0.5rem;">
+                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                        </div>
+                        <div class="progress-label">
+                            <span>${percentage.toFixed(1)}% Complete</span>
+                            <span>₹${(cause.goal - cause.raised).toLocaleString()} to go</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            container.innerHTML = cardsHTML;
+        }
+
+        function updateNoDonationsMessage() {
+            const donationsList = document.getElementById('donationsList');
+            if (!donationsList) return;
+            
+            const noDonationsEl = donationsList.querySelector('.no-donations');
+            if (!noDonationsEl) return; // If it doesn't exist, do nothing
+
+            if (allDonations.length === 0) {
+                noDonationsEl.innerHTML = `
+                    <div class="no-donations-icon">📋</div>
+                    <h3>No Donations Yet</h3>
+                    <p>Be the first to make a difference! Your contribution will appear here.</p>`;
+            } else {
+                noDonationsEl.innerHTML = `
+                    <div class="no-donations-icon">📋</div>
+                    <h3>No Donations Found</h3>
+                    <p>No donations match your current filter. Try selecting "All Causes".</p>`;
+            }
+        }
+
+        function renderDonationsRecords() {
+            const donationsList = document.getElementById('donationsList');
+            if (!donationsList) return;
+
+            const sortValue = document.getElementById('sortDonations').value;
+            const items = donationsList.querySelectorAll('.donation-item');
+            
+            if (items.length === 0 && allDonations.length === 0) {
+                 updateNoDonationsMessage();
+                return; 
+            }
+
+            let visibleItems = [];
+            items.forEach(item => {
+                const isMatch = currentFilter === 'all' || item.dataset.cause === currentFilter;
+                item.style.display = isMatch ? 'grid' : 'none';
+                if (isMatch) {
+                    visibleItems.push(item);
+                }
+            });
+
+            const sortedVisibleItems = visibleItems.sort((a, b) => {
+                const valA_ts = parseInt(a.dataset.timestamp);
+                const valB_ts = parseInt(b.dataset.timestamp);
+                const valA_amt = parseFloat(a.dataset.amount);
+                const valB_amt = parseFloat(b.dataset.amount);
+
+                switch (sortValue) {
+                    case 'date-asc': return valA_ts - valB_ts;
+                    case 'amount-desc': return valB_amt - valA_amt;
+                    case 'amount-asc': return valA_amt - valB_amt;
+                    case 'date-desc': default: return valB_ts - valA_ts;
+                }
+            });
+            
+            sortedVisibleItems.forEach(item => {
+                donationsList.appendChild(item);
+            });
+            
+            const noDonationsEl = donationsList.querySelector('.no-donations');
+            if (visibleItems.length === 0) {
+                if (!noDonationsEl) {
+                    donationsList.innerHTML += `<div class="no-donations"></div>`;
+                }
+                updateNoDonationsMessage();
+            } else {
+                if (noDonationsEl) noDonationsEl.remove();
+            }
+        }
+
+        // --- Utils ---
+        function getTimeAgo(receiptId) {
+            const timestamp = parseInt(String(receiptId).replace('RHT', ''));
+            const now = Date.now();
+            const diff = now - timestamp;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return `${minutes} min${minutes !== 1 ? 's' : ''} ago`;
+            if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+            return `${days} day${days !== 1 ? 's' : ''} ago`;
+        }
+        
+        function isValidEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function isValidPhone(phone) {
+            const re = /^(?:\+91)?[ -]?[6789]\d{9}$/;
+            return re.test(String(phone));
+        }
+        
+        // --- Global onclick Functions ---
+        
+        window.filterRecords = (event, filter) => {
+            currentFilter = filter;
+            document.querySelectorAll('#filterButtonsContainer .filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (event) {
+                event.target.classList.add('active');
+            } else {
+                document.querySelector('#filterButtonsContainer .filter-btn').classList.add('active');
+            }
+            renderDonationsRecords();
+        }
+        
+        window.renderDonationsRecords = renderDonationsRecords; 
+
+        window.toggleMobileNav = () => {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburgerMenu');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        window.showPage = (event, pageId) => {
+            if (event) event.preventDefault();
+            
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(`'${pageId}'`)) {
+                    link.classList.add('active');
+                }
+            });
+            
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburgerMenu');
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            if (pageId === 'records') {
+                updateRecordsStats();
+                renderCauseRecordsStats();
+                renderDonationsRecords();
+            }
+        }
+
+        window.selectAmount = (event, amount) => {
+            document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+            if (event) event.target.classList.add('active');
+            document.getElementById('donationAmount').value = amount;
+        }
+
+        window.clearAmountButtons = () => {
+             document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        window.selectCause = (causeId) => {
+            document.getElementById('causeSelect').value = causeId;
+        }
+
+        // --- Form Handlers ---
+        
+        document.getElementById('donationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+
+            const causeId = document.getElementById('causeSelect').value;
+            const amount = parseFloat(document.getElementById('donationAmount').value);
+            const name = document.getElementById('donorName').value.trim();
+            const email = document.getElementById('donorEmail').value.trim();
+            const phone = document.getElementById('donorPhone').value.trim();
+            const address = document.getElementById('donorAddress').value.trim();
+            const message = document.getElementById('donorMessage').value.trim();
+
+            if (!causeId) {
+                showNotification('Please select a cause to support.', true);
+                submitButton.disabled = false;
+                return;
+            }
+            if (!amount || amount < 1) {
+                showNotification('Please enter a valid donation amount.', true);
+                submitButton.disabled = false;
+                return;
+            }
+            if (!name) {
+                 showNotification('Please enter your full name.', true);
+                 submitButton.disabled = false;
+                return;
+            }
+            if (!isValidEmail(email)) {
+                 showNotification('Please enter a valid email address.', true);
+                 submitButton.disabled = false;
+                return;
+            }
+             if (!isValidPhone(phone)) {
+                 showNotification('Please enter a valid 10-digit phone number.', true);
+                 submitButton.disabled = false;
+                return;
+            }
+            if (!address) {
+                 showNotification('Please enter your address.', true);
+                 submitButton.disabled = false;
+                return;
+            }
+
+            const cause = causes.find(c => c.id === causeId);
+            const receiptId = 'RHT' + Date.now();
+            const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+            const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+            cause.raised += amount;
+            await saveCausesData();
+            
+            const donation = {
+                receiptId, date, time, causeId,
+                causeName: cause.name, causeIcon: cause.icon,
+                amount, name, email, phone, address, message
+            };
+
+            await saveDonation(donation);
+            
+            addNewDonationToDOM(donation); 
+            renderCauses(); 
+            renderCauseRecordsStats(); 
+            updateRecordsStats(); 
+
+            currentReceipt = donation;
+            showReceipt(donation);
+            
+            // --- MODIFIED: Removed automatic email simulation ---
+            // sendDonationEmail(donation); 
+
+            document.getElementById('donationForm').reset();
+            clearAmountButtons();
+            submitButton.disabled = false;
+        });
+
+        function showReceipt(donation) {
+            const receiptDetails = document.getElementById('receiptDetails');
+            receiptDetails.innerHTML = `
+                <div class="receipt-highlight-amount">
+                    <p>Total Donated</p>
+                    <h3>₹${donation.amount.toLocaleString()}</h3>
+                </div>
+                
+                <div class="receipt-group">
+                    <h4>Donated To</h4>
+                    <p style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.5rem;">${donation.causeIcon}</span>
+                        <strong>${donation.causeName}</strong>
+                    </p>
+                    ${donation.message ? `<p style="margin-top: 1rem; font-style: italic; color: #666;">"${donation.message}"</p>` : ''}
+                </div>
+
+                <div class="receipt-group">
+                    <h4>Donor Details</h4>
+                    <p><strong>Name:</strong> ${donation.name}</p>
+                    <p><strong>Email:</strong> ${donation.email}</p>
+                    <p><strong>Phone:</strong> ${donation.phone}</p>
+                    <p><strong>Address:</strong> ${donation.address}</p>
+                </div>
+                
+                <div class="receipt-group">
+                    <h4>Transaction Details</h4>
+                    <p><strong>Receipt ID:</strong> ${donation.receiptId}</p>
+                    <p><strong>Date:</strong> ${donation.date}</p>
+                    <p><strong>Time:</strong> ${donation.time}</p>
+                </div>
+            `;
+            
+            // --- MODIFIED: Updated receipt message ---
+            document.getElementById('receiptEmailMessage').innerHTML = `Your donation is complete. You can now download your receipt or send it to your email.`;
+            document.getElementById('receiptModal').classList.add('active');
+        }
+
+        window.closeReceipt = () => {
+            document.getElementById('receiptModal').classList.remove('active');
+        }
+
+        window.closeReceiptOnOutside = (event) => {
+            if (event.target.id === 'receiptModal') {
+                closeReceipt();
+            }
+        }
+        
+        function getReceiptText() {
+            if (!currentReceipt) return "";
+            return `
+════════════════════════════════════════════════════
+                RISING HANDS TRUST
+            OFFICIAL DONATION RECEIPT
+════════════════════════════════════════════════════
+
+Receipt ID: ${currentReceipt.receiptId}
+Date & Time: ${currentReceipt.date} at ${currentReceipt.time}
+
+DONOR INFORMATION:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name:     ${currentReceipt.name}
+Email:    ${currentReceipt.email}
+Phone:    ${currentReceipt.phone}
+Address:  ${currentReceipt.address}
+
+DONATION DETAILS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cause:    ${currentReceipt.causeIcon} ${currentReceipt.causeName}
+Amount:   ₹${currentReceipt.amount.toLocaleString()}
+
+${currentReceipt.message ? `Your Message:\n"${currentReceipt.message}"\n` : ''}
+════════════════════════════════════════════════════
+
+Thank you for your generous contribution!
+
+Your donation is eligible for tax deduction under 
+Section 80G of the Income Tax Act, 1961.
+
+Your support is making a real difference in the lives 
+of those we serve. We are deeply grateful for your 
+compassion and generosity.
+
+════════════════════════════════════════════════════
+Rising Hands Trust
+123 Charity Street, Ludhiana, Punjab 141001
+Email: info@risinghandstrust.org
+Phone: +91 161 123 4567
+════════════════════════════════════════════════════
+
+This is a computer-generated receipt and does not 
+require a signature.
+
+Registered under Section 80G | Registration No: AABCT1234F
+════════════════════════════════════════════════════
+            `;
+        }
+
+        window.downloadReceipt = () => {
+            if (!currentReceipt) return;
+            const receiptText = getReceiptText();
+            const blob = new Blob([receiptText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `RisingHandsTrust_Receipt_${currentReceipt.receiptId}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // --- NEW: Send Email Function (using mailto:) ---
+        window.sendEmailReceipt = () => {
+            if (!currentReceipt) {
+                showNotification("No receipt data found.", true);
+                return;
+            }
+            
+            const receiptText = getReceiptText();
+            const subject = `Your Donation Receipt from Rising Hands Trust (ID: ${currentReceipt.receiptId})`;
+            
+            // Encode for URL
+            const encodedSubject = encodeURIComponent(subject);
+            const encodedBody = encodeURIComponent(receiptText);
+            
+            // Create mailto link
+            const mailtoLink = `mailto:${currentReceipt.email}?subject=${encodedSubject}&body=${encodedBody}`;
+            
+            // Open user's default email client
+            window.location.href = mailtoLink;
+        }
+
+        window.handleContactForm = (event) => {
+            event.preventDefault();
+            const button = event.target.querySelector('button');
+            button.disabled = true;
+            button.textContent = 'Sending...';
+            
+            showNotification('Message Sent! Thank You.');
+            
+            setTimeout(() => {
+                event.target.reset();
+                button.disabled = false;
+                button.textContent = 'SEND MESSAGE';
+            }, 3000);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
+
